@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Design Practice</title>
     <style>
+        h1{
+            width: auto;
+            height:50px;
+        }
         body{
             background-color:aliceblue;
         }
         .section1{
+            top:auto;
+            height:400px;
             width:500px;
             box-shadow:0px 2px 7px gray ;
             background-color:lightblue;
@@ -16,6 +22,8 @@
             display: inline-block;
         }
         .section2{
+            top:auto;
+            height:400px;
             width:500px;
             box-shadow:0px 2px 7px gray ;
             background-color:papayawhip;
@@ -23,15 +31,21 @@
             display: inline-block;
         }
         .section3{
+            top:auto;
+            height:400px;
             width:500px;
             box-shadow:0px 2px 7px gray ;
             background-color:#FFD5EC;
             padding:10px 10px 40px 20px;
             display: inline-block;
+
+            
         }
 
         @media screen and (min-width: 481px)and(max-width: 959px) {
-            
+           .section3{
+            position:static;
+           }
         }
 
         @media screen and (max-width: 480px){
@@ -77,3 +91,4 @@
     </div>
 </body>
 </html>
+

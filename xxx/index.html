@@ -3,92 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Design Practice</title>
-    <style>
-        h1{
-            width: auto;
-            height:50px;
-        }
-        body{
-            background-color:aliceblue;
-        }
-        .section1{
-            top:auto;
-            height:400px;
-            width:500px;
-            box-shadow:0px 2px 7px gray ;
-            background-color:lightblue;
-            padding:10px 10px 40px 20px;
-            display: inline-block;
-        }
-        .section2{
-            top:auto;
-            height:400px;
-            width:500px;
-            box-shadow:0px 2px 7px gray ;
-            background-color:papayawhip;
-            padding:10px 10px 40px 20px;
-            display: inline-block;
-        }
-        .section3{
-            top:auto;
-            height:400px;
-            width:500px;
-            box-shadow:0px 2px 7px gray ;
-            background-color:#FFD5EC;
-            padding:10px 10px 40px 20px;
-            display: inline-block;
-
-            
-        }
-
-        @media screen and (min-width: 481px)and(max-width: 959px) {
-           .section3{
-            position:static;
-           }
-        }
-
-        @media screen and (max-width: 480px){
-            
-        }
-
-    </style>
+    <title>GAS and JS Communication</title>
 </head>
 <body>
-    <h1>Responsive Design Practice</h1>
+    <h1>GAS and JavaScript Data Communication</h1>
+    <input type="text" id="messageInput" placeholder="Enter your message">
+    <button id="sendMessageBtn">Send Message</button>
+    <div id="response"></div>
 
-    <div class="section1">
-        <section>
-            <h2>Section1</h2>
-            <p>This is the first section. it has a light blue background, 
-                padding, margin, and a box shadow. The layout adjusts responsively 
-                to different screen sizes.
-            </p>
-            <img src="image/section1.jpg">
-        </section>
-    </div>
+    <script>
+        // GASのWebアプリURL
+        const gasUrl = 'YOUR_GAS_WEB_APP_URL_HERE';
 
-    <div class="section2">
-        <section>
-            <h2>Section2</h2>
-            <p>This is the second section. it has a light orange background, 
-                padding, margin, and a box shadow. The layout adjusts responsively 
-                to different screen sizes.
-            </p>
-            <img src="image/section2.jpg">
-        </section>
-    </div>
+        document.getElementById('sendMessageBtn').addEventListener('click', function() {
+            const message = document.getElementById('messageInput').value;
 
-    <div class="section3">
-        <section>
-            <h2>Section3</h2>
-            <p>This is the third section. it has a light purple background, 
-                padding, margin, and a box shadow. The layout adjusts responsively 
-                to different screen sizes.
-            </p>
-            <img src="image/section3.jpg">
-        </section>
-    </div>
+            // POSTリクエスト用のデータ
+            const requestData = {
+                message: message
+            };
+
+            // Fetch APIを使ってPOSTリクエストを送信
+            fetch(gasUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // レスポンスを画面に表示
+                document.getElementById('response').innerHTML = 
+                    `Server Response: ${data.reply}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
-
