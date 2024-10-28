@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAS and JS Communication v1.1</title>
+    <title>GAS and JS Data Communication</title>
 </head>
 <body>
     <h1>GAS and JavaScript Data Communication</h1>
@@ -12,10 +12,11 @@
     <div id="response"></div>
 
     <script>
-        // GASのWebアプリURL
-        const gasUrl = 'https://script.google.com/macros/s/AKfycbz48m68CMDqi4H_oqOELIQ_ohE172mnj_PzQslsOrxfjGZ45MgzHA7MFj9vih993i11sg/exec';
+        // GASのWebアプリURL (デプロイURLをここに入れてください)
+        const gasUrl = 'https://script.google.com/macros/s/AKfycbywBKn4-i-V25B0TgJuCWA0yetA-GdIoRsmnupfs166OHeP8Xd-L8kLo7Oc35rHOLvaDw/exec';
 
-        document.getElementById('sendMessageBtn').addEventListener('click', function() {
+        // メッセージ送信の関数
+        async function sendData() {
             const message = document.getElementById('messageInput').value;
 
             // POSTリクエスト用のデータ
@@ -23,24 +24,29 @@
                 message: message
             };
 
-            // Fetch APIを使ってPOSTリクエストを送信
-            fetch(gasUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                // Fetch APIを使ってPOSTリクエストを送信
+                const response = await fetch(gasUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                // レスポンスをJSONとして取得
+                const data = await response.json();
+                
                 // レスポンスを画面に表示
-                document.getElementById('response').innerHTML = 
-                    `Server Response: ${data.reply}`;
-            })
-            .catch(error => {
+                document.getElementById('response').innerHTML = `Server Response: ${data.reply}`;
+            } catch (error) {
                 console.error('Error:', error);
-            });
-        });
+                document.getElementById('response').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // ボタンをクリックした時にsendData関数を実行
+        document.getElementById('sendMessageBtn').addEventListener('click', sendData);
     </script>
 </body>
 </html>
