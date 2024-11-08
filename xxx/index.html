@@ -1,52 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAS and JS Data Communication</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <h1>GAS and JavaScript Data Communication</h1>
-    <input type="text" id="messageInput" placeholder="Enter your message">
-    <button id="sendMessageBtn">Send Message</button>
-    <div id="response"></div>
+  <h1>じゃあオナニーっていうのは、、？</h1>
+  <button onclick="fetchTest()">やりますねぇ！</button>
 
-    <script>
-        // GASのWebアプリURL (デプロイURLをここに入れてください)
-        const gasUrl = 'https://script.google.com/macros/s/AKfycbywBKn4-i-V25B0TgJuCWA0yetA-GdIoRsmnupfs166OHeP8Xd-L8kLo7Oc35rHOLvaDw/exec';
-
-        // メッセージ送信の関数
-        async function sendData() {
-            const message = document.getElementById('messageInput').value;
-
-            // POSTリクエスト用のデータ
-            const requestData = {
-                message: message
-            };
-
-            try {
-                // Fetch APIを使ってPOSTリクエストを送信
-                const response = await fetch(gasUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestData)
-                });
-                
-                // レスポンスをJSONとして取得
-                const data = await response.json();
-                
-                // レスポンスを画面に表示
-                document.getElementById('response').innerHTML = `Server Response: ${data.reply}`;
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('response').innerHTML = `Error: ${error.message}`;
-            }
-        }
-
-        // ボタンをクリックした時にsendData関数を実行
-        document.getElementById('sendMessageBtn').addEventListener('click', sendData);
-    </script>
+  <script>
+    async function fetchTest() {
+      const url = 'https://script.google.com/macros/s/AKfycbxNEjUhqXf7KwyH7xtyEyx-S6sb7CjWOHhNZTKIF6lk7G4EiQURekSg9CpD3_wBdku0/exec?number=114514';
+      const responce = await fetch(url);
+      console.log(responce);
+    }
+  </script>
 </body>
 </html>
